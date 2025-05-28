@@ -1,0 +1,27 @@
+{
+  "name": "SONiC 202012 Build Environment (Debian Buster)",
+  "image": "debian:buster", // 或者 mcr.microsoft.com/vscode/devcontainers/base:buster
+
+  "hostRequirements": {
+    "cpus": 8,         // 建议至少 8 核
+    "memory": "32gb",  // 建议至少 32GB
+    "storage": "128gb" // 建议至少 128GB，SONiC 编译会占用大量空间
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": "false",
+      "installOhMyZsh": "false",
+      "upgradePackages": "false" // 我们将手动控制更新和安装
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+        "version": "latest", // SONiC 构建过程可能需要 Docker
+        "moby": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh", // 将命令放入单独的脚本
+
+  "remoteUser": "vscode" // 或者其他非 root 用户
+}
